@@ -12,6 +12,9 @@ export function SocketProvider({ children }) {
       auth: { token }
     });
   };
+  const token = localStorage.getItem('token');
+  console.log('SocketProvider init, token:', token, 'socket:', socketRef.current);
+  if (token && !socketRef.current) connect(token);
 
   const disconnect = () => {
     socketRef.current?.disconnect();
