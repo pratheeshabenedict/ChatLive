@@ -17,7 +17,7 @@ export default function Chat() {
 
   useEffect(() => {
     const socket = socketRef.current;
-    
+
     if (!socket) { navigate('/'); return; }
 
     socket.on('history', (msgs) => setMessages(msgs));
@@ -33,6 +33,7 @@ export default function Chat() {
     });
 
     return () => socket.removeAllListeners();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
