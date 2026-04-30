@@ -15,8 +15,9 @@ export default function Login() {
     setError('');
     setLoading(true);
     try {
+      // ✅
       const { data } = await axios.post(
-        `http://localhost:5000/api/auth/${mode}`, form
+        `${process.env.REACT_APP_SERVER_URL}/api/auth/${mode}`, form
       );
       localStorage.setItem('token', data.token);
       localStorage.setItem('username', data.username);
@@ -141,7 +142,7 @@ export default function Login() {
 
       {/* Right panel - form */}
       <div style={{
-        
+
         flex: '0 0 100%',
         display: 'flex',
         alignItems: 'center',
