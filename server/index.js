@@ -7,13 +7,12 @@ const jwt = require('jsonwebtoken');
 const authRoutes = require('./src/routes/auth');
 const Message = require('./src/models/Message');
 require('dotenv').config();
-
+// console.log(process.env.CLIENT_URL);
 const app = express();
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
-  cors: { origin: 'process.env.CLIENT_URL', methods: ['GET', 'POST'], credentials: true }
+  cors: { origin: process.env.CLIENT_URL, methods: ['GET', 'POST'], credentials: true }
 });
-
 app.use(cors());
 app.use(express.json());
 app.use('/api/auth', authRoutes);
