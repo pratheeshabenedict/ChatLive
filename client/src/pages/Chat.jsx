@@ -227,6 +227,19 @@ export default function Chat() {
         </div>
       </div>
 
+      {sidebarOpen && (
+        <div
+          className="mobile-overlay"
+          onClick={() => setSidebarOpen(false)}
+          style={{
+            display: 'none',
+            position: 'fixed', inset: 0,
+            background: 'rgba(0,0,0,0.45)',
+            zIndex: 99,
+          }}
+        />
+      )}
+
       {/* ── Main Chat Area ── */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
 
@@ -240,6 +253,22 @@ export default function Chat() {
           flexShrink: 0,
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            {/* Hamburger — mobile only */}
+            <button
+              onClick={() => setSidebarOpen(o => !o)}
+              style={{
+                display: 'none',
+                background: 'none', border: 'none', cursor: 'pointer',
+                padding: 4, color: '#0f1117',
+              }}
+              className="mobile-menu-btn"
+            >
+              <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
+                <rect x="2" y="4" width="12" height="1.5" rx="0.75" fill="currentColor" />
+                <rect x="2" y="7.25" width="8" height="1.5" rx="0.75" fill="currentColor" />
+                <rect x="2" y="10.5" width="10" height="1.5" rx="0.75" fill="currentColor" />
+              </svg>
+            </button>
             <div style={{
               width: 8, height: 8, borderRadius: '50%', background: '#4ade80',
               boxShadow: '0 0 0 2px rgba(74,222,128,0.25)',
@@ -471,9 +500,29 @@ export default function Chat() {
           .sidebar { width: 180px; }
         }
         @media (max-width: 700px) {
-          .sidebar { width: 56px; }
-          .sidebar .sidebar-label { display: none; }
-        }
+  .sidebar {
+    position: fixed !important;
+    top: 0; left: 0; bottom: 0;
+    z-index: 100;
+    width: 220px !important;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease, width 0.25s ease !important;
+  }
+  .sidebar.sidebar-open {
+    transform: translateX(0);
+  }
+  .sidebar.sidebar-open .sidebar-label { display: block !important; }
+  .sidebar.sidebar-closed {
+    transform: translateX(-100%);
+  }
+  .mobile-overlay {
+    display: block !important;
+  }
+    @media (max-width: 700px) {
+  .mobile-menu-btn { display: flex !important; }
+  .mobile-overlay { display: block !important; }
+}
+}
       `}</style>
     </div>
   );
